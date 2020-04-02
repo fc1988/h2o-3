@@ -1,9 +1,6 @@
 package hex.gam;
 
-import hex.DataInfo;
-import hex.ModelBuilder;
-import hex.ModelCategory;
-import hex.ModelMetrics;
+import hex.*;
 import hex.gam.GAMModel.GAMParameters;
 import hex.gam.MatrixFrameUtils.GamUtils;
 import hex.gam.MatrixFrameUtils.GenerateGamMatrixOneColumn;
@@ -494,6 +491,7 @@ public class GAM extends ModelBuilder<GAMModel, GAMModel.GAMParameters, GAMModel
       model._rank = glmModel._output.bestSubmodel().rank();
       model._ymu = new double[glmModel._ymu.length];
       System.arraycopy(glmModel._ymu, 0, model._ymu, 0, glmModel._ymu.length);
+      model._parms = copyGLMParams2GAMParams(glmModel._effective_parms);
     }
     
     void copyGLMCoeffs(GLMModel glm, GAMModel model, DataInfo dinfo) {

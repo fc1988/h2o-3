@@ -277,7 +277,7 @@ abstract public class ModelBuilder<M extends Model<M,P,O>, P extends Model.Param
     public final void computeEffectiveParameters() {
       M model = _result.get();
       if (model != null) {
-        model._effective_parms = (P) _parms.clone();
+        model._effective_parms = (P) model._parms.clone();
         model.computeEffectiveParameters();
         checkEffectiveParmsDoesNotContainAuto(model._effective_parms);
       }
