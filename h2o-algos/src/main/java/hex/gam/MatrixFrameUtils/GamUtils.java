@@ -102,38 +102,6 @@ public class GamUtils {
     }
   }
 
-  public static GAMParameters copyGLMParams2GAMParams(GLMParameters parms) {
-    GAMParameters gamParam = new GAMParameters();
-    Field[] field1 = GLMParameters.class.getDeclaredFields();
-    setGLMParamFieldsToGAMParamFields(parms, gamParam, false, field1);
-    Field[] field2 = Model.Parameters.class.getDeclaredFields();
-    setGLMParamFieldsToGAMParamFields(parms, gamParam, true, field2);
-    gamParam._train = parms._train;
-    return gamParam;
-  }
-
-  public static void setGLMParamFieldsToGAMParamFields(GLMParameters parms, GAMParameters gamParam, boolean superClassParams, Field[] glmFields) {
-    // assign relevant GLMParameter fields to GAMParameter fields
-    List<String> glmOnlyList = Arrays.asList(new String[]{"_useDispersion1", "_rand_family", "_rand_link", "_startval", "_calc_like", "_random_columns",
-            "_HGLM", "_dprobit"});
-    Field gamField;
-    for (Field oneField : glmFields) {
-      try {
-        if (!glmOnlyList.contains(oneField.getName())) {
-          if (superClassParams)
-            gamField = gamParam.getClass().getSuperclass().getDeclaredField(oneField.getName());
-          else
-            gamField = gamParam.getClass().getDeclaredField(oneField.getName());
-          gamField.set(gamParam, oneField.get(parms));
-        }
-      } catch (IllegalAccessException e) { // suppress error printing, only cares about fields that are accessible
-        ;
-      } catch (NoSuchFieldException e) {  // only cares about fields that are there and don't care about missing ones
-        ;
-      }
-    }
-  }
-
   public static int locateBin(double xval, double[] knots) {
     if (xval <= knots[0])  //small short cut
       return 0;

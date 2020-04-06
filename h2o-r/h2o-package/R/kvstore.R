@@ -210,7 +210,7 @@ h2o.getModel <- function(model_id) {
   }
   parameters <- list()
   allparams  <- list()
-  effective_parameters <-list()
+  effective_parameters <- list()
   effective_allparams <- list()
 
   fill_pairs <- function(param, all=TRUE) {
@@ -270,7 +270,6 @@ h2o.getModel <- function(model_id) {
   for (param in effective_allparams_key_val) {if (!any(is.na(param[1])))  effective_allparams[unlist(param[1])] <- param[2]}
   for (param in parameters_key_val) {if (!any(is.na(param[1]))) parameters[unlist(param[1])] <- param[2]}
   for (param in effective_parameters_key_val) {if (!any(is.na(param[1]))) effective_parameters[unlist(param[1])] <- param[2]}
-
 
   # Run model specific hooks
   model_fill_func <- paste0(".h2o.fill_", json$algo)
